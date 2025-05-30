@@ -6,6 +6,8 @@ from src.logger import logging
 from src.exception import customException
 from dataclasses import dataclass
 from src.components.data_transformation import DataTransform
+from src.components.model_trainer import ModelTrain
+from src.components.model_trainer import ModelTrainConfig
 
 @dataclass
 class dataIngestionConfig:
@@ -36,5 +38,7 @@ if __name__ == "__main__":
    train_data,test_data=obj.read_data()
    dataTrans=DataTransform()
    train_arr,test_arr=dataTrans.initiate_preprocessing(dataIngestionConfig.train_datapath,dataIngestionConfig.test_datapath)
+   modelTrain=ModelTrain()
+   print(modelTrain.train(train_arr=train_arr,test_arr=test_arr))
 
    
