@@ -7,6 +7,7 @@ from sklearn.metrics import r2_score as r2s
 from src.exception import customException
 from src.logger import logging
 from sklearn.model_selection import GridSearchCV
+import pickle
 
 def save_object(obj,file_path):
  try:
@@ -35,6 +36,13 @@ def evaluate_model(X_train,y_train,X_test,y_test,model_dict,param):
         report[list(model_dict.keys())[i]]=r2_test
         logging.info(f"Model {list(model_dict.keys())[i]} : {r2_test}")
       return report
+   except Exception as e:
+      raise customException(e,sys)
+   
+def load_obj(filepath):
+   try:
+      with open(filepath, 'rb') as f:
+         return pickle.load(f)
    except Exception as e:
       raise customException(e,sys)
     
